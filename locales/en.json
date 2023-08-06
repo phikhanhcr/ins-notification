@@ -1,0 +1,69 @@
+{
+    "translation": {
+        "common": {
+            "validate_fail": "Incorrect data",
+            "not_found": "Resource not found!",
+            "forbidden": "Access denied!",
+            "unauthorized": "Your session has expired, please login again",
+            "deprecated": "Your app version is outdated, please update latest version to continue using Bitu!"
+        },
+        "auth": {
+            "signup": {
+                "409": {
+                    "100": "Your email has already signed up, please try to login!"
+                },
+                "429": {
+                    "115": "You make requests too frequently, please try again later!"
+                }
+            },
+            "login": {
+                "400": {
+                    "501": "Sorry, there's a login error. Please try again or contact administrator to get support.",
+                    "101": "Your phone doesn't exist",
+                    "103": "Your account has been blocked, please contact administrator!",
+                    "102": "Your account must be verified first!",
+                    "113": "Your username or password is incorrect. Please try again."
+                },
+                "403": {
+                    "120": "You are currently logging in more than one devices. Kindly log in only one device at a time."
+                }
+            },
+            "login-social": {
+                "400": {
+                    "501": "Sorry, there's a login error. Please try again or contact administrator to get support.",
+                    "112": "Your login time has expired",
+                    "114": "You aren't allowed to log in through this system",
+                    "103": "Your account has been blocked, please contact administrator!",
+                    "102": "Your account must be verified first"
+                }
+            },
+            "forgot-password": {
+                "400": {
+                    "101": "Your email doesn't exist"
+                }
+            },
+            "reset-password": {
+                "200": "Your password has been changed successfully, you can login with your new password!",
+                "400": {
+                    "110": "Your login time has expired. Please try again",
+                    "101": "Your email doesn't exist"
+                }
+            },
+            "refresh-token": {
+                "400": {
+                    "110": "Your login time has expired",
+                    "101": "Your login time has expired"
+                },
+                "403": {
+                    "120": "You can't use our service on this device now. Please log out."
+                }
+            },
+            "logout": {
+                "200": "Log out successfully",
+                "400": {
+                    "101": "Something's gone wrong, please try again!"
+                }
+            }
+        }
+    }
+}

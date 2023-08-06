@@ -1,0 +1,47 @@
+{
+    "ts-node": {
+        // Do not forget to `npm i -D tsconfig-paths`
+        "require": [
+            "tsconfig-paths/register"
+        ]
+    },
+    "compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "target": "ESNext",
+        "noImplicitAny": false,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist",
+        "baseUrl": ".",
+        "typeRoots": [
+            "@types",
+            "./node_modules/@types"
+        ],
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "paths": {
+            "@api/*": [
+                "src/api/*"
+            ],
+            "@worker/*": [
+                "src/worker/*"
+            ],
+            "@common/*": [
+                "src/common/*"
+            ],
+            "@consumer/*": [
+                "src/consumer/*"
+            ],
+            "@config/*": [
+                "src/config/*"
+            ],
+            "*": [
+                "node_modules/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ]
+}
