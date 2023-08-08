@@ -11,7 +11,7 @@ import fastifyEtag from '@fastify/etag';
 import fastifyRawBody from 'fastify-raw-body';
 import i18n from '@common/i18n';
 import i18nMiddleware from 'i18next-http-middleware';
-
+import cors from '@fastify/cors';
 /**
  * Abstraction around the raw FastifyInstance.js server and Nodes' HTTP server.
  * Defines HTTP request mappings, basic as well as request-mapping-specific
@@ -27,7 +27,7 @@ export class FastifyServer {
         await this.setupSecurityMiddlewares(server);
         this.setupErrorHandlers(server);
         await this.configureRoutes(server);
-
+        await this.testHook(server);
         this.server = await this.listen(server, port);
         this.server = server;
         return this.server;
@@ -37,6 +37,30 @@ export class FastifyServer {
         logger.info(`Starting server on port ${port} (${NODE_ENV})`);
         await server.listen({ host: '0.0.0.0', port });
         return server;
+    }
+
+    public async testHook(server: FastifyInstance): Promise<void> {
+        server.addHook('onRequest', (request, reply, done) => {
+            // Some code
+            // console.log({ request, reply, payload });
+            // console.log('123123');
+            // done();
+            console.log('oonRequest');
+            done();
+        });
+        server.addHook('preParsing', (request, reply, payload, done) => {
+            // Some code
+            // console.log({ request, reply, payload });
+            // console.log('123123');
+            // done();
+            console.log('preParsing');
+            done();
+        });
+        server.addHook('onTimeout', async (request, reply) => {
+            // Some code
+            console.log('timout');
+            // await asyncMethod();
+        });
     }
 
     public async kill(): Promise<void> {
@@ -56,6 +80,7 @@ export class FastifyServer {
                 },
             },
         });
+        server.register(cors, { origin: '*' });
     }
 
     private async setupStandardMiddlewares(server: FastifyInstance) {

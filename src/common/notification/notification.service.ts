@@ -6,6 +6,7 @@ import { NotificationType } from './notification.interface';
 import { UserNotificationFactory } from './transform/user-factory';
 import { NotificationStatus, UserNotification } from './entity/UserNotification';
 import { DataSource } from 'typeorm';
+import { IAuthUser } from '@common/auth/auth.interface';
 
 export class NotificationService {
     static async createNotification(
@@ -64,5 +65,25 @@ export class NotificationService {
             .execute();
         // run query
         return notification;
+    }
+
+    static async getUserNotifications(auth: IAuthUser): Promise<UserNotification[]> {
+        // do something
+        const query = (await DatabaseAdapter.getClient())
+            .createQueryBuilder(UserNotification, 'u')
+            .where('auth_id = :auth_id', { auth_id: auth.id })
+            .orderBy({ 'u.received_at': 'DESC' });
+        const data = await query.getMany();
+        console.log({ data });
+        return data;
+    }
+
+    static async readAll(auth: IAuthUser): Promise<UserNotification[]> {
+        // do something
+        const query = (await DatabaseAdapter.getClient())
+            .createQueryBuilder(UserNotification, 'u')
+            .where('auth_id = :auth_id', { auth_id: auth.id });
+        const data = await query.getMany();
+        return data;
     }
 }

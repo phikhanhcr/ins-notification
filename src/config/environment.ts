@@ -26,3 +26,7 @@ export const MQTT_USERNAME: string = process.env.MQTT_USERNAME;
 export const MQTT_PASSWORD: string = process.env.MQTT_PASSWORD;
 
 export const KAFKA_BROKERS: string[] = process.env.KAFKA_BROKERS.split(',').filter((key) => key.trim() !== '');
+
+export const JWT_PRIVATE_KEY: string = process.env.JWT_PRIVATE_KEY;
+export const JWT_PUBLIC_KEY: string = process.env.JWT_PUBLIC_KEY;
+export const JWT_EXPIRES_IN: number = parseInt(process.env.JWT_EXPIRES_IN, 10) || 86400;
