@@ -78,12 +78,32 @@ export class NotificationService {
         return data;
     }
 
-    static async readAll(auth: IAuthUser): Promise<UserNotification[]> {
-        // do something
+    static async readAll(auth: IAuthUser): Promise<void> {
+        await (await DatabaseAdapter.getClient())
+            .createQueryBuilder()
+            .update(UserNotification)
+            .set({ status: NotificationStatus.SEEN_AND_READ })
+            .where('auth_id = :auth_id', { auth_id: auth.id })
+            .execute();
+        // {{ result: UpdateResult { generatedMaps: [], raw: [], affected: 1 } }
+    }
+
+    static async checkNew(auth: IAuthUser): Promise<{ is_new: boolean; total: number }> {
         const query = (await DatabaseAdapter.getClient())
             .createQueryBuilder(UserNotification, 'u')
-            .where('auth_id = :auth_id', { auth_id: auth.id });
+            .where('auth_id = :auth_id', { auth_id: auth.id })
+            .where('status = :status', { status: NotificationStatus.UNSEEN_AND_UNREAD });
         const data = await query.getMany();
-        return data;
+
+        if (data.length) {
+            return {
+                is_new: true,
+                total: data.length,
+            };
+        }
+        return {
+            is_new: false,
+            total: 0,
+        };
     }
 }

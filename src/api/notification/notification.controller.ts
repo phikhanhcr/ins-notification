@@ -15,10 +15,22 @@ export class NotificationController {
 
     static async readAll(req: FastifyRequest, res: FastifyReply): Promise<void> {
         try {
-            const data = await NotificationService.readAll(req.user);
+            await NotificationService.readAll(req.user);
             return res.send({
                 message: 'Operation executed successfully!',
-                data: data.map((notification) => notification.transform()),
+                data: {},
+            });
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    static async checkNew(req: FastifyRequest, res: FastifyReply): Promise<void> {
+        try {
+            const data = await NotificationService.checkNew(req.user);
+            return res.send({
+                message: 'Operation executed successfully!',
+                data: data,
             });
         } catch (error) {
             throw error;
