@@ -190,7 +190,6 @@ export class UserNotification {
 
     compile(lang: Language, template: INotificationTemplate): void {
         const compiledData = this.getCompiledData();
-        this.icon = template.icon;
         this.title = unescape(template.title[lang](compiledData, { allowProtoPropertiesByDefault: true }));
         this.content = renderMessage(template.content[lang](compiledData, { allowProtoPropertiesByDefault: true }));
         this.compiledAt = new Date();

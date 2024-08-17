@@ -39,7 +39,7 @@ export class NotificationService {
         notification.status = NotificationStatus.UNSEEN_AND_UNREAD;
         notification = transformer.transform(Language.EN, notification);
         notification.updatedAt = new Date();
-
+        notification.icon = oldNotification ? oldNotification.icon : null;
         await client
             .createQueryBuilder()
             .insert()

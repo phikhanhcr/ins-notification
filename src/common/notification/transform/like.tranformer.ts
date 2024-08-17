@@ -75,8 +75,9 @@ export class UserLikedPostTransformer implements INotificationTransformer {
             },
         ];
 
+        const postImage = get(this.data.di_obj, 'data.images_url', []);
         notification.url = `link redirect to post`;
-        notification.icon = template.icon;
+        notification.icon = postImage.length ? postImage[0] : template.icon;
         notification.data = data;
         notification.meta = meta;
         let avatar = get(this.data.subject, 'data.avatar', DEFAULT_USER_AVATAR);
